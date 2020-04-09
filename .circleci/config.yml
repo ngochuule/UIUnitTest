@@ -15,16 +15,16 @@ jobs:
     #branches:
     #  only:
     #    - master
-#    deployment:
-#      beta:
-#        branch: [develop]
-#        commands:
-#          - ./gradlew assembleDebug
-#
-#      prod:
-#        branch: [master]
-#        commands:
-#          - ./gradlew assembleRelease
+    #    deployment:
+    #      beta:
+    #        branch: [develop]
+    #        commands:
+    #          - ./gradlew assembleDebug
+    #
+    #      prod:
+    #        branch: [master]
+    #        commands:
+    #          - ./gradlew assembleRelease
     resource_class: medium
     environment:
       JVM_OPTS: -Xmx5000m
@@ -48,44 +48,44 @@ jobs:
           name: Build apk
           command: |
             ./gradlew :app:assembleDebug
-#            ./gradlew :app:assembleDebugAndroidTest
+      #            ./gradlew :app:assembleDebugAndroidTest
       - store_artifacts:
           path: ./app/build/outputs/apk/debug/app-debug.apk
           destination: /apks/app-debug.apk
-test:
-  working_directory: ~/test
-  docker:
-    - image: circleci/android:api-29
-#  deployment:
-#    beta:
-#      branch: [develop]
-#      commands:
-#        - ./gradlew assembleDebug
-#
-#    prod:
-#      branch: [master]
-#      commands:
-#        - ./gradlew assembleRelease
-  resource_class: medium
-  environment:
-    JVM_OPTS: -Xmx5000m
-  steps:
-    - checkout
-    - run:
-        name: Run Unit Tests against Presenter
-        command: ./gradlew clean lint test jacocoTestReport
-    - store_artifacts:
-        path: app/build/reports
-        destination: reports
-    - store_test_results:
-        path: app/build/reports/tests/
-    - run:
-        name: Build apk
-        command:
-          ./gradlew :app:assembleDebugAndroidTest
-    - store_artifacts:
-        path: ./app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
-        destination: /apks/app-debug-androidTest.apk
+  test:
+    working_directory: ~/test
+    docker:
+      - image: circleci/android:api-29
+  #  deployment:
+  #    beta:
+  #      branch: [develop]
+  #      commands:
+  #        - ./gradlew assembleDebug
+  #
+  #    prod:
+  #      branch: [master]
+  #      commands:
+  #        - ./gradlew assembleRelease
+    resource_class: medium
+    environment:
+      JVM_OPTS: -Xmx5000m
+    steps:
+      - checkout
+      - run:
+          name: Run Unit Tests against Presenter
+          command: ./gradlew clean lint test jacocoTestReport
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+      - store_test_results:
+          path: app/build/reports/tests/
+      - run:
+          name: Build apk test
+          command:
+            ./gradlew :app:assembleDebugAndroidTest
+      - store_artifacts:
+          path: ./app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+          destination: /apks/app-debug-androidTest.apk
 
 workflows:
   version: 2
