@@ -72,6 +72,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: chmod permissions test
+          command: chmod +x ./gradlew
+      - run:
           name: Run Unit Tests against Presenter
           command: ./gradlew clean lint test jacocoTestReport
       - store_artifacts:
