@@ -76,7 +76,8 @@ jobs:
           command: chmod +x ./gradlew
       - run:
           name: Run Unit Tests against Presenter
-          command: ./gradlew clean lint test jacocoTestReport
+          command: ./gradlew clean lint test
+#          command: ./gradlew clean lint test jacocoTestReport
       - store_artifacts:
           path: app/build/reports
           destination: reports
