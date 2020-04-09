@@ -15,16 +15,16 @@ jobs:
     #branches:
     #  only:
     #    - master
-    deployment:
-      beta:
-        branch: [develop]
-        commands:
-          - ./gradlew assembleDebug
-
-      prod:
-        branch: [master]
-        commands:
-          - ./gradlew assembleRelease
+#    deployment:
+#      beta:
+#        branch: [develop]
+#        commands:
+#          - ./gradlew assembleDebug
+#
+#      prod:
+#        branch: [master]
+#        commands:
+#          - ./gradlew assembleRelease
     resource_class: medium
     environment:
       JVM_OPTS: -Xmx5000m
@@ -56,16 +56,16 @@ test:
   working_directory: ~/test
   docker:
     - image: circleci/android:api-29
-  deployment:
-    beta:
-      branch: [develop]
-      commands:
-        - ./gradlew assembleDebug
-
-    prod:
-      branch: [master]
-      commands:
-        - ./gradlew assembleRelease
+#  deployment:
+#    beta:
+#      branch: [develop]
+#      commands:
+#        - ./gradlew assembleDebug
+#
+#    prod:
+#      branch: [master]
+#      commands:
+#        - ./gradlew assembleRelease
   resource_class: medium
   environment:
     JVM_OPTS: -Xmx5000m
@@ -88,7 +88,8 @@ test:
         destination: /apks/app-debug-androidTest.apk
 
 workflows:
-  build:
+  version: 2
+  build_and_test:
     jobs:
       - build
       - test
